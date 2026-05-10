@@ -99,18 +99,51 @@
     </header>
 
     <section class="relative h-screen min-h-[600px] flex items-center justify-center pt-20">
-        <!-- Background Image (Local File) -->
+        <!-- Background Image (Online File) -->
         <div class="absolute inset-0 z-0">
-             <img src="main-bg.jpg" alt="Hotel Arcadia Plutus Bamboo Exterior" class="w-full h-full object-cover" />
+             <img src="https://i.ibb.co/RpBJCGQD/image.jpg" alt="Hotel Arcadia Plutus Bamboo Exterior" class="w-full h-full object-cover" />
              <div class="absolute inset-0 hero-overlay"></div>
         </div>
 
-        <div class="relative z-10 text-center text-white px-4">
-            <h1 class="font-serif text-5xl md:text-7xl font-bold mb-4 tracking-wide shadow-sm">HOTEL ARCADIA PLUTUS</h1>
-            <p class="text-lg md:text-2xl font-light tracking-widest uppercase mb-8 text-gray-200">Jaipur, Rajasthan</p>
-            
-            <div class="bg-white/10 backdrop-blur-md p-4 rounded-sm inline-block border border-white/20">
-                <p class="text-sm tracking-wider uppercase">Experience the charm of premium bamboo luxury</p>
+        <div class="relative z-10 container mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-12 pt-10">
+            <!-- Left Text -->
+            <div class="text-center md:text-left text-white flex-1">
+                <h1 class="font-serif text-5xl md:text-7xl font-bold mb-4 tracking-wide shadow-sm">HOTEL ARCADIA PLUTUS</h1>
+                <p class="text-lg md:text-2xl font-light tracking-widest uppercase mb-8 text-gray-200">Jaipur, Rajasthan</p>
+                
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-sm inline-block border border-white/20">
+                    <p class="text-sm tracking-wider uppercase">Experience the charm of premium bamboo luxury</p>
+                </div>
+            </div>
+
+            <!-- Right Booking Floating Card -->
+            <div class="w-full max-w-md bg-white rounded-md shadow-2xl p-6 md:p-8 transform transition-transform hover:-translate-y-1 mt-8 md:mt-0">
+                <h3 class="font-serif text-2xl text-charcoal mb-6 text-center border-b border-gray-100 pb-4">Quick Booking Query</h3>
+                
+                <!-- Custom Alert Box -->
+                <div id="booking-alert" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-sm relative mb-5 shadow-sm" role="alert">
+                    <p class="font-bold text-sm">Error</p>
+                    <p class="text-sm">Please fill in all fields before sending.</p>
+                </div>
+
+                <div class="space-y-5 text-left">
+                    <div>
+                        <label class="block text-xs font-bold tracking-wider text-gray-500 mb-1 uppercase" for="customer-name">Customer Name</label>
+                        <input type="text" id="customer-name" class="w-full border border-gray-300 text-charcoal rounded-sm px-4 py-2.5 focus:ring-2 focus:ring-forest focus:border-transparent outline-none transition" placeholder="Enter your name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold tracking-wider text-gray-500 mb-1 uppercase" for="check-in-date">Check-in Date</label>
+                        <input type="date" id="check-in-date" class="w-full border border-gray-300 text-charcoal rounded-sm px-4 py-2.5 focus:ring-2 focus:ring-forest focus:border-transparent outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold tracking-wider text-gray-500 mb-1 uppercase" for="check-in-time">Check-in Time</label>
+                        <input type="time" id="check-in-time" class="w-full border border-gray-300 text-charcoal rounded-sm px-4 py-2.5 focus:ring-2 focus:ring-forest focus:border-transparent outline-none transition">
+                    </div>
+                    <button onclick="sendWhatsAppQuery()" class="w-full mt-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3.5 px-4 rounded-sm flex items-center justify-center space-x-3 transition duration-300 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span class="tracking-wider uppercase text-sm">Send to WhatsApp</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -184,19 +217,19 @@
             </div>
         </div>
 
-        <!-- Image Gallery based on local images -->
+        <!-- Image Gallery based on online images -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Room Interior -->
             <div class="overflow-hidden rounded-sm shadow-md h-64">
-                <img src="room-1.jpg" alt="Premium Bamboo Room Interior" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                <img src="https://i.ibb.co/FLNKwxRt/image.jpg" alt="Premium Bamboo Room Interior" class="w-full h-full object-cover hover:scale-105 transition duration-500">
             </div>
             <!-- Exterior/Night View -->
             <div class="overflow-hidden rounded-sm shadow-md h-64">
-                <img src="room-2.jpg" alt="Hotel Arcadia Plutus Night View" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                <img src="https://i.ibb.co/MDk2pQVs/image.jpg" alt="Hotel Arcadia Plutus Night View" class="w-full h-full object-cover hover:scale-105 transition duration-500">
             </div>
             <!-- Courtyard View -->
             <div class="overflow-hidden rounded-sm shadow-md h-64">
-                <img src="room-3.jpg" alt="Hotel Arcadia Plutus Courtyard" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                <img src="https://i.ibb.co/y14DZYW/image.jpg" alt="Hotel Arcadia Plutus Courtyard" class="w-full h-full object-cover hover:scale-105 transition duration-500">
             </div>
         </div>
     </div>
@@ -341,6 +374,38 @@
                 });
             });
         });
+
+        // WhatsApp Booking Query Logic
+        function sendWhatsAppQuery() {
+            const name = document.getElementById('customer-name').value.trim();
+            const date = document.getElementById('check-in-date').value;
+            const time = document.getElementById('check-in-time').value;
+            const alertBox = document.getElementById('booking-alert');
+
+            // Validation: Check if fields are empty
+            if (!name || !date || !time) {
+                alertBox.classList.remove('hidden');
+                
+                // Auto-hide alert after 3.5 seconds
+                setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                }, 3500);
+                return;
+            }
+
+            // Hide alert if successful
+            alertBox.classList.add('hidden');
+
+            // Construct exactly required message string
+            const message = `Hello! I want to make a booking query.\nName: ${name}\nCheck-in Date: ${date}\nCheck-in Time: ${time}`;
+            
+            // Encode properly for URL
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/919829075853?text=${encodedMessage}`;
+            
+            // Redirect in a new tab
+            window.open(whatsappUrl, '_blank');
+        }
     </script>
 
     <!-- Floating Mobile Call Button -->
